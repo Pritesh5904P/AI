@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - AI Assistant</title>
+
+ 
+
+   <script>
+/* -------------------------
+      SEND MESSAGE TO BACKEND
+---------------------------- */
+async function sendMsg(customText) {
+
+    let input = document.getElementById("userInput");
+    let chatBox = document.getElementById("chatBox");
+
+    // If voice text is received → use that. Else use input box.
+    let userText = customText || input.value.trim();
+    if (userText === "") return;
+
+    // Show user message
+    chatBox.innerHTML += `<div class="msg user">${userText}</div>`;
+
+    try {
+        let response = await fetch("http://localhost:4000/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userText })
+        });
+
+        let result = await response.json();
+
+        // Show bot message
+        chatBox.innerHTML += `<div class="msg bot">${result.reply}</div>`;
+
+        // Bot voice output
+        speakText(result.reply);
+
+    } catch (err) {
+        chatBox.innerHTML += `<div class="msg bot error">Server Error ❌</div>`;
+        console.error("Error:", err);
+    }
+
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+/* ----------------------------------
+         🎤 VOICE RECOGNITION
+------------------------------------ */
+function startVoice() {
+    let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US"; // You can use "gu-IN" (Gujarati) or "hi-IN" (Hindi)
+
+    recognition.start();
+
+    recognition.onstart = () => {
+        console.log("Listening…");
+    };
+
+    recognition.onresult = (event) => {
+        let text = event.results[0][0].transcript;
+        sendMsg(text); // Send voice text to backend
+    };
+
+    recognition.onerror = (err) => {
+        alert("Voice Error: " + err.error);
+    };
+}
+
+/* --------------------------
+       🔊 BOT TTS SPEAK
+--------------------------- */
+function speakText(text){
+    let speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "en-US"; // change as needed
+    speech.rate = 1;
+    window.speechSynthesis.speak(speech);
+}
+   </script>
+
+<style>
+    *{margin: 0; padding: 0; box-sizing: border-box; font-family: Arial;}
+    body{background: #0d0d0d; color: #fff;}
+    header{
+        width: 100%; padding: 20px 40px; background: #1a1a1a;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    header a{color: #cfcfff; margin-left: 20px; text-decoration: none;}
+
+    .chat-container{
+        width: 90%; max-width: 700px; margin: 40px auto;
+        background: #1a1a1a; border-radius: 10px;
+        padding: 20px; height: 70vh;
+        display: flex; flex-direction: column;
+    }
+    .chat-box{flex: 1; overflow-y: auto;}
+    .msg{
+        margin: 10px 0; padding: 12px 16px; border-radius: 10px;
+        width: fit-content; max-width: 80%;
+    }
+    .user{background: #6c5ce7; margin-left: auto;}
+    .bot{background: #333;}
+
+    .input-area{
+        display: flex; gap: 10px; margin-top: 10px;
+    }
+    input{
+        flex: 1; padding: 12px; background: #000; border: 1px solid #555;
+        border-radius: 6px; color: white;
+    }
+    button{
+        padding: 12px 20px; background: #6c5ce7; border: none;
+        color: white; border-radius: 6px; cursor: pointer;
+    }
+
+    /* MIC BUTTON */
+    .mic-btn{
+        background: #e84393;
+        border-radius: 50%;
+        width: 45px; height: 45px;
+        display: flex; justify-content: center; align-items: center;
+        font-size: 20px; cursor: pointer; border: none;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2 class="logo">AI Assistant</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="chat.html">Chat</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+<div class="chat-container">
+    <div class="chat-box" id="chatBox">
+        <div class="msg bot">Hello! How can I assist you?</div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type your message...">
+        <button onclick="sendMsg()">Send</button>
+
+        <button class="mic-btn" onclick="startVoice()">
+            <img src="voice mic.png" style="width:28px; height:28px;" alt="mic">
+        </button>
+    </div>
+</div>
+
+</body>
+</html>    

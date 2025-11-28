@@ -1,0 +1,123 @@
+{
+  "commands": [
+    {
+      "type": "greeting",
+      "keywords": ["hello", "hi", "hey", "kem cho", "namaste"],
+      "response": "👋 Hello! How can I help you today?"
+    },
+
+    {
+      "type": "greeting",
+      "keywords": ["good morning"],
+      "response": "🌅 Good Morning! Have a beautiful day ahead."
+    },
+    {
+      "type": "greeting",
+      "keywords": ["good night"],
+      "response": "🌙 Good Night! Sleep well."
+    },
+
+    {
+      "type": "system",
+      "keywords": ["time", "what time", "samay"],
+      "action": "get_time"
+    },
+    {
+      "type": "system",
+      "keywords": ["date", "what date", "tarikh"],
+      "action": "get_date"
+    },
+
+    {
+      "type": "fun",
+      "keywords": ["joke", "majakiya", "funny"],
+      "response": "😂 Here's a joke for you: Why don’t programmers like nature? Because it has too many bugs!"
+    },
+    {
+      "type": "fun",
+      "keywords": ["gujarati joke", "majak", "majakiya gujarati"],
+      "response": "🤣 ગુજરાતી જોક: એક વખત શિક્ષકે પૂછ્યું— સ્કૂલ મોડા કેમ આવે છે? વિદ્યાર્થી: કેમ કે ટીચર કહે છે કે મોડું આવે તો સ્ટેન્ડિંગ ઓવેશન મળે છે!"
+    },
+
+    {
+      "type": "motivation",
+      "keywords": ["motivate", "inspire", "quote"],
+      "response": "💡 Motivation: 'Believe you can and you're halfway there.'"
+    },
+
+    {
+      "type": "website",
+      "keywords": ["open google", "google kholo"],
+      "action": "https://www.google.com"
+    },
+    {
+      "type": "website",
+      "keywords": ["open youtube", "youtube kholo"],
+      "action": "https://www.youtube.com"
+    },
+    {
+      "type": "website",
+      "keywords": ["open instagram", "insta kholo"],
+      "action": "https://www.instagram.com"
+    },
+    {
+      "type": "website",
+      "keywords": ["open facebook"],
+      "action": "https://www.facebook.com"
+    },
+
+    {
+      "type": "search",
+      "keywords": ["search", "find", "google search"],
+      "action": "google_search"
+    },
+
+    {
+      "type": "info",
+      "keywords": ["your name", "who are you"],
+      "response": "🤖 I am your naruto uzumaki   created to help you with anything!"
+    },
+
+    {
+      "type": "info",
+      "keywords": ["who created you", "who made you"],
+      "response": "🛠 I was created by Priyanshi with the help of smart coding!"
+    },
+
+    {
+      "type": "assistant",
+      "keywords": ["thank you", "thanks", "dhanyavaad"],
+      "response": "😊 You're welcome! Happy to help!"
+    },
+
+    {
+      "type": "assistant",
+      "keywords": ["bye", "goodbye"],
+      "response": "👋 Goodbye! Take care."
+    },
+
+    {
+      "type": "weather",
+      "keywords": ["weather", "hava ma su chhe"],
+      "response": "☀️ Please check weather: https://www.google.com/search?q=weather"
+    },
+
+    {
+      "type": "math",
+      "keywords": ["add", "calculate", "what is", "minus", "multiply"],
+      "action": "calculator"
+    },
+
+    {
+      "type": "music",
+      "keywords": ["play music", "song"],
+      "response": "🎵 You can listen here: https://www.youtube.com/results?search_query=music"
+    },
+
+    {
+      "type": "timepass",
+      "keywords": ["bored", "gham chhe", "timepass"],
+      "response": "😄 Here! Do something fun: play a game, listen to music or ask me jokes!"
+    }
+  ]
+}
